@@ -1,0 +1,6 @@
+@PHNSE.Autenticacao.API_HostAddress = http://localhost:5083
+
+GET {{PHNSE.Autenticacao.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
