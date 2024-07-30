@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using PHNSE.Autenticacao.API.Configuration;
 using PHNSE.Autenticacao.API.Data;
 using PHNSE.Autenticacao.API.Services;
 using PHNSE.Autenticacao.API.Services.Interfaces;
@@ -18,6 +20,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
 
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 
+builder.Services.AddSwaggerConfiguration();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -28,6 +32,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwaggerConfiguration();
 
 app.MapControllers();
 

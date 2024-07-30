@@ -4,7 +4,7 @@ using PHNSE.Autenticacao.API.Services.Interfaces;
 
 namespace PHNSE.Autenticacao.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/autenticacao")]
     public class AutenticacaoController : ControllerBase
     {
         private readonly IAutenticacaoService _autenticacaoService;
