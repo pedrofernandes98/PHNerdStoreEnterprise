@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using PHNSE.Autenticacao.API.Configuration;
 using PHNSE.Autenticacao.API.Data;
 using PHNSE.Autenticacao.API.Services;
