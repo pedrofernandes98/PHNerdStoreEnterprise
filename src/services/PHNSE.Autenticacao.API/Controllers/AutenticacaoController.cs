@@ -4,6 +4,7 @@ using PHNSE.Autenticacao.API.Services.Interfaces;
 
 namespace PHNSE.Autenticacao.API.Controllers
 {
+    [ApiController]
     [Route("api/autenticacao")]
     public class AutenticacaoController : ControllerBase
     {
@@ -15,7 +16,7 @@ namespace PHNSE.Autenticacao.API.Controllers
         }
 
         [HttpPost("novo-usuario")]
-        public async Task<IActionResult> RegistrarNovoUsuario(UsuarioRegistroViewModel usuario)
+        public async Task<IActionResult> RegistrarNovoUsuario([FromBody] UsuarioRegistroViewModel usuario)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -28,7 +29,7 @@ namespace PHNSE.Autenticacao.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> EfetuarLoginUsuario(UsuarioLoginViewModel usuario)
+        public async Task<IActionResult> EfetuarLoginUsuario([FromBody] UsuarioLoginViewModel usuario)
         {
             if (!ModelState.IsValid) return BadRequest();
 
