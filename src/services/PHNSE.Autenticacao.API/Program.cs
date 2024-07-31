@@ -17,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddJwtConfig(builder.Configuration);
+
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 
 builder.Services.AddSwaggerConfiguration();

@@ -22,7 +22,7 @@ namespace PHNSE.Autenticacao.API.Controllers
 
             if (await _autenticacaoService.RegistrarNovoUsuarioAsync(usuario))
             {
-                return Ok();
+                return Ok(await _autenticacaoService.GerarTokenJwt(usuario.Email));
             }
 
             return BadRequest();
@@ -35,7 +35,7 @@ namespace PHNSE.Autenticacao.API.Controllers
 
             if(await _autenticacaoService.EfetuarLoginUsuarioAsync(usuario))
             {
-                return Ok();
+                return Ok(await _autenticacaoService.GerarTokenJwt(usuario.Email));
             }
 
             return BadRequest();

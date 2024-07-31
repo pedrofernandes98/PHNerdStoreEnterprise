@@ -7,5 +7,7 @@ namespace PHNSE.Autenticacao.API.Services.Interfaces
         Task<bool> RegistrarNovoUsuarioAsync(UsuarioRegistroViewModel usuario);
 
         Task<bool> EfetuarLoginUsuarioAsync(UsuarioLoginViewModel usuario);
+
+        Task<UsuarioRespostaLoginViewModel> GerarTokenJwt(string email);
     }
 }
