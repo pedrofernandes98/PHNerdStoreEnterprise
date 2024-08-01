@@ -6,7 +6,7 @@ namespace PHNSE.Autenticacao.API.Controllers
 {
     [ApiController]
     [Route("api/autenticacao")]
-    public class AutenticacaoController : ControllerBase
+    public class AutenticacaoController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
