@@ -26,14 +26,27 @@ namespace PHNSE.Autenticacao.API.Services
             _appSettings = appSettings.Value;
         }
 
-        public async Task<bool> EfetuarLoginUsuarioAsync(UsuarioLoginViewModel usuario)
+        public async Task<UsuarioRespostaErrosViewModel> EfetuarLoginUsuarioAsync(UsuarioLoginViewModel usuario)
         {
-            var resut = await _signInManager.PasswordSignInAsync(usuario.Email, usuario.Senha, false, true);
+            var result = await _signInManager.PasswordSignInAsync(usuario.Email, usuario.Senha, false, true);
 
-            return resut.Succeeded;
+            var retorno = new UsuarioRespostaErrosViewModel();
+
+            if (!result.Succeeded)
+            {
+                if (result.IsLockedOut)
+                {
+                    retorno.AdicionaErro("Usuário temporariamente bloqueado por tentativas inválidas");
+                    return retorno;
+                }
+
+                retorno.AdicionaErro("Usuário ou Senha incorretos");
+            }
+
+            return retorno;
         }
 
-        public async Task<bool> RegistrarNovoUsuarioAsync(UsuarioRegistroViewModel usuario)
+        public async Task<UsuarioRespostaErrosViewModel> RegistrarNovoUsuarioAsync(UsuarioRegistroViewModel usuario)
         {
             var identityUser = new IdentityUser
             {
@@ -46,10 +59,13 @@ namespace PHNSE.Autenticacao.API.Services
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(identityUser, false);
+                //await _signInManager.SignInAsync(identityUser, false);
+                return new UsuarioRespostaErrosViewModel();
             }
 
-            return result.Succeeded;
+            var retorno = new UsuarioRespostaErrosViewModel();
+            retorno.AdicionaErros(result.Errors.Select(erro => erro.Description).ToList());
+            return retorno;
         }
 
         public async Task<UsuarioRespostaLoginViewModel> GerarTokenJwt(string email)

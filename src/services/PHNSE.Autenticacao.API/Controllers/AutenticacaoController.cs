@@ -18,27 +18,31 @@ namespace PHNSE.Autenticacao.API.Controllers
         [HttpPost("novo-usuario")]
         public async Task<IActionResult> RegistrarNovoUsuario([FromBody] UsuarioRegistroViewModel usuario)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if (await _autenticacaoService.RegistrarNovoUsuarioAsync(usuario))
+            var resposta = await _autenticacaoService.RegistrarNovoUsuarioAsync(usuario);
+
+            if (resposta.Sucesso)
             {
-                return Ok(await _autenticacaoService.GerarTokenJwt(usuario.Email));
+                return CustomResponse(await _autenticacaoService.GerarTokenJwt(usuario.Email));
             }
 
-            return BadRequest();
+            return CustomResponse(resposta);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> EfetuarLoginUsuario([FromBody] UsuarioLoginViewModel usuario)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if(await _autenticacaoService.EfetuarLoginUsuarioAsync(usuario))
+            var resposta = await _autenticacaoService.EfetuarLoginUsuarioAsync(usuario);
+
+            if (resposta.Sucesso)
             {
-                return Ok(await _autenticacaoService.GerarTokenJwt(usuario.Email));
+                return CustomResponse(await _autenticacaoService.GerarTokenJwt(usuario.Email));
             }
 
-            return BadRequest();
+            return CustomResponse(resposta);
         }
     }
 }

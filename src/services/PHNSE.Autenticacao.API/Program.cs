@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PHNSE.Autenticacao.API.Configuration;
 using PHNSE.Autenticacao.API.Data;
+using PHNSE.Autenticacao.API.Extensions;
 using PHNSE.Autenticacao.API.Services;
 using PHNSE.Autenticacao.API.Services.Interfaces;
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddRoles<IdentityRole>()
+    .AddErrorDescriber<IdentityMensagensPortugues>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
